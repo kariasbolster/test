@@ -1,35 +1,25 @@
-language: node_js
+language: 
+  node_js
 node_js:
-- '7'
+  - '7.5.0'
 env:
   - CXX=g++-4.8
-sudo:
+sudo: 
   required
 services:
   - docker
-#TODO caching of node_modules
-before_install:
-  - npm install
-  - npm install -g github-changes
+install: 
+  - npm install -g newman
   - docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:3.0.1-germanium
   
-install:
-  # Install any dependencies required for building your site here.
-  # `awscli` is required for invalidation of CloudFront distributions and sync file to s# bucket
-  - pip install --user awscli
-  - npm run build
-
-# This is needed to avoid building all the tags pushed by travis
-
-#script:
-  # TODO launch unit test
-
-#after_deploy:
- # TODO Launch integration test for uat env
+before_script:
+  - chmod +x ./deploy.sh
+script:
+  ./deploy.sh
 
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-- g++-4.8
+      - g++-4.8
