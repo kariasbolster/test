@@ -11,12 +11,6 @@ services:
 install: 
   - npm install -g newman
   - docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:3.0.1-germanium
-  
-before_script:
-  - chmod +x ./deploy.sh
-script:
-  ./deploy.sh
-
 addons:
   apt:
     sources:
